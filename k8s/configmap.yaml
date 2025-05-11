@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mern-config
+  namespace: mern-app
+data:
+  REACT_APP_API_URL: "http://mern-server:5000/api"
+  CLIENT_URL: "http://mern-client:3000"
+  GOOGLE_CALLBACK_URL: "http://testdomain/api/auth/google/callback"
+  FACEBOOK_CALLBACK_URL: "http://testdomain/api/auth/facebook/callback"
