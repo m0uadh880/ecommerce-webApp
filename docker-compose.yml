@@ -1,47 +1,22 @@
-version: '3'
+version: '3.8'
 
 services:
   client:
-    build: client
-    container_name: client
+    image: hamaaa/mern-client:latest
+    environment:
+      - API_URL=${API_URL}
     ports:
-      - '8080:8080'
-    networks:
-      - app-network
+      - '3000:8080'
+    depends_on:
+      - server
 
   server:
-    build: server
-    container_name: server
+    image: hamaaa/mern-server:latest
     environment:
-      - PORT=3000
-      - BASE_API_URL=api
-      - CLIENT_URL=http://localhost:8080
-      - JWT_SECRET=azerty123
-      - MONGO_URI=mongodb+srv://api:miH7th346wPqxRS1@Cluster0.k7ioflu.mongodb.net/mern_ecommerce # Default Mongo URL & DB name when running project locally
+      - MONGO_URI=${MONGO_URI}
+      - JWT_SECRET=${JWT_SECRET}
+      - CLIENT_URL=${CLIENT_URL}
+      - GOOGLE_CALLBACK_URL=${GOOGLE_CALLBACK_URL}
+      - FACEBOOK_CALLBACK_URL=${FACEBOOK_CALLBACK_URL}
     ports:
-      - '3000:3000'
-    command: [
-        'sh',
-        '-c',
-        'npm run seed:db admin@example.com admin123 && npm start'
-      ] # Default email and password arguments to database seed script - update your admin email and password
-    depends_on:
-      - mongo
-    networks:
-      - app-network
-
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
-    command: mongod --quiet --logpath /dev/null
-    ports:
-      - '27017:27017'
-    networks:
-      - app-network
-
-volumes:
-  mongo-data:
-
-networks:
-  app-network:
-    driver: bridge
+      - '5000:5000'
