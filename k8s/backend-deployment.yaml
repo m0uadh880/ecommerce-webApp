@@ -45,18 +45,6 @@ spec:
             configMapKeyRef:
               name: mern-config
               key: FACEBOOK_CALLBACK_URL
-        readinessProbe:
-          httpGet:
-            path: /api/health
-            port: 5000
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /api/health
-            port: 5000
-          initialDelaySeconds: 30
-          periodSeconds: 10
         resources:
           requests:
             cpu: "100m"
